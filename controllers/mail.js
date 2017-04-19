@@ -1,46 +1,42 @@
-var nodemailer = require("nodemailer");
+const nodemailer = require('nodemailer')
 
-module.exports = function (app) {
-    app.post('/', function (req, res) {
-        req.assert('name').notEmpty();
-        req.assert('from').notEmpty();
-        req.assert('message').notEmpty();
+module.exports = app => {
+  app.post('/', (req, res) => {
+    req.assert('name').notEmpty();
+    req.assert('from').notEmpty();
+    req.assert('message').notEmpty();
 
-        var validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
 
-        if (validationErrors) {
-            res.status(400).json(validationErrors);
-        }
+    if (validationErrors)
+      res.status(400).json(validationErrors)
 
-        var authUser = process.env.AUTH_USER;
-        var authPassword = process.env.AUTH_PASSWORD;
+    const auth = {
+      user: process.env.AUTH_USER,
+      password: process.env.AUTH_PASSWORD
+    }
 
-        var name = req.body.name;
-        var from = req.body.from;
-        var message = req.body.message;
-        var to = process.env.TO_EMAIL;
+    const poolConfig = `smtp://${auth.user}:${auth.password}@smtp.gmail.com/?pool=true`
 
-        var poolConfig = 'smtp://' + authUser + ':' + authPassword + '@smtp.gmail.com/?pool=true';
+    const smtpTransport = nodemailer.createTransport(poolConfig, {
+      service: 'Gmail'
+    })
 
-        var smtpTransport = nodemailer.createTransport(poolConfig, {
-            service: "Gmail"
-        });
+    const mailOptions = {
+      from: req.body.from,
+      to: process.env.TO_EMAIL,
+      subject: `Node Mail Sender (${req.body.name}) | (${req.body.from})`,
+      text: req.body.message
+    }
 
-        var mailOptions = {
-            from: from,
-            to: to,
-            subject: 'Node Mail Sender (' + name + ') | (' + from + ')',
-            text: message
-        }
-
-        smtpTransport.sendMail(mailOptions, function (error, response) {
-            if (error) {
-                console.log(error);
-                res.status(400).json(error);
-            } else {
-                console.log('E-mail from ' + from + ' sent with success!');
-                res.status(200).json(response);
-            }
-        });
-    });
+    smtpTransport.sendMail(mailOptions, (error, response) => {
+      if (error) {
+        console.log(error)
+        res.status(400).json(error)
+      } else {
+        console.log(`E-mail from ${mailOptions.from} sent with success!`)
+        res.status(200).json(response)
+      }
+    })
+  })
 }
