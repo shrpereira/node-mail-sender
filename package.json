@@ -4,7 +4,7 @@
   "description": "Simple node mail sender",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node src/index.js"
   },
   "author": "Silvio Pereira",
   "license": "ISC",
