@@ -9,10 +9,15 @@ Create Environment Variables:
 * TO_MAIL - Who will receive the e-mail
 * SERVER_PORT - Which port the server will run (default = 3000)
 
+You also can run the following command to create a temporary variables:
+```bash
+AUTH_USER=<your_user> AUTH_PASSWORD=<your_password> TO_MAIL=<your_receiver> npm start
+```
+
 ## Running it
 1. Clone the project
-2. npm install
-3. npm start
+2. `npm install`
+3. `npm start`
 
 ## Testing it
 Make a POST call to http://your-server-ip:3000/ with the following json payload:
