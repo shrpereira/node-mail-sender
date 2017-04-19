@@ -1,17 +1,22 @@
-var express = require("express");
-var load = require("express-load");
-var bodyParser = require("body-parser");
-var expressValidator = require("express-validator");
+const express = require('express');
+const load = require('express-load');
+const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
 
-module.exports = function () {
-    var app = express();
+module.exports = () => {
+  const app = express();
 
-    app.use(bodyParser.urlencoded({ extended: true }));
-    app.use(bodyParser.json());
-    app.use(expressValidator());
+  app.use(bodyParser.urlencoded({
+    extended: true
+  }));
 
-    load("controllers", { cwd: "" })
-        .into(app);
+  app.use(bodyParser.json());
+  app.use(expressValidator());
 
-    return app;
+  load('controllers', {
+      cwd: ''
+    })
+    .into(app);
+
+  return app;
 }
