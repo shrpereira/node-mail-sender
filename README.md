@@ -13,3 +13,13 @@ Create Environment Variables:
 1. Clone the project
 2. npm install
 3. npm start
+
+## Testing it
+Make a POST call to http://your-server-ip:3000/ with the following json payload:
+```
+{
+	"name": "<contact_form:name_field>"
+	"from": "<contact_form:email_field>"
+	"message": "<contact_form:message_field>"
+}
+```
