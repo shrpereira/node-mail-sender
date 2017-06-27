@@ -3,16 +3,11 @@
 This project aims to provide a simple mail sender via Rest calls using Node.JS. I built it to use with my website contact form and I`m going to improve it with more functionalities.
 
 ## Dependency
-Create Environment Variables:
+Fill the variables.env file with the following informations:
 * AUTH_USER - Login user
 * AUTH_PASSWORD - Login password
 * TO_MAIL - Who will receive the e-mail
 * SERVER_PORT - Which port the server will run (default = 3000)
-
-You also can run the following command to create a temporary variables:
-```bash
-AUTH_USER=<your_user> AUTH_PASSWORD=<your_password> TO_MAIL=<your_receiver> npm start
-```
 
 ## Running it
 1. Clone the project
