@@ -1,5 +1,6 @@
 const app = require('./config/express')();
 const http = require('http').Server(app);
+require('dotenv').config({path: 'variables.env'})
 
 const port = process.env.SERVER_PORT || 3000;
 
